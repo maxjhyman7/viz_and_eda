@@ -113,3 +113,56 @@ weather_df |>
 ```
 
 ![](01_viz_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+## Univariate plots
+
+``` r
+weather_df |> 
+  ggplot() + 
+  geom_histogram(mapping = aes(x = tmax, fill = name)) + 
+  facet_wrap(~ name)
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
+
+![](01_viz_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+Density plots are great!!
+
+``` r
+weather_df |> 
+  ggplot() + 
+  geom_density(mapping = aes(x = tmax, fill = name), alpha = 0.3) 
+```
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_density()`).
+
+![](01_viz_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+``` r
+weather_df |> 
+  ggplot() + 
+  geom_violin(mapping = aes(x = name, y = tmax, fill = name), alpha = 0.3) 
+```
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_ydensity()`).
+
+![](01_viz_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+``` r
+weather_df |> 
+  ggplot() + 
+  geom_density_ridges(mapping = aes(x = tmax, y = name, fill = name), alpha = 0.5) 
+```
+
+    ## Picking joint bandwidth of 1.54
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_density_ridges()`).
+
+![](01_viz_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
