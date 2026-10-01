@@ -1,0 +1,59 @@
+---
+title: "Visualization"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(ggridges)
+
+library(p8105.datasets)
+data("weather_df")
+```
+
+Now we have everything we need!
+
+```{r}
+weather_df
+```
+
+
+```{r}
+weather_df |> 
+  ggplot() + 
+  geom_point(mapping = aes(x = tmin, y = tmax, color = name), alpha = 0.25) +
+  geom_smooth(mapping = aes(x = tmin, y = tmax, color = name), se = FALSE)
+# aes is aesthetic mapping
+# alpha is alpha blending
+```
+
+Show faceting 
+
+```{r}
+weather_df |> 
+  ggplot() + 
+  geom_point(mapping = aes(x = tmin, y = tmax, color = name), alpha = 0.5) + 
+  facet_grid(cols = vars(name))
+```
+
+Let's look at something else. 
+
+```{r}
+weather_df |> 
+  ggplot() + 
+  geom_point(mapping = aes(x = date, y = tmax, color = name, size = prcp), alpha = 0.5) +
+  geom_smooth(mapping = aes(x = date, y = tmax, color = name), se = FALSE) + 
+  facet_grid(. ~ name)
+```
+
+
+Make a plot of central park tmax v tmin only, and convert temprratures fahrenheit
+```{r}
+weather_df |> 
+  filter(name == "CentralPark_NY") |> 
+  mutate(tmin_f = tmin*1.8 + 32,
+         tmax_f = tmax*1.8 + 32) |> 
+  ggplot() + 
+  geom_point(mapping = aes(x = tmin_f, y = tmax_f))
+```
+
